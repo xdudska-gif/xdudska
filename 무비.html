@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Movie – YoungNam Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sky:#AEE8FF;
+      --lemon:#FFF6B3;
+      --ink:#1b1b1b;
+      --muted:#6b6b6b;
+      --paper:#ffffff;
+      --accent:#E2C75E;
+      --maxw:1200px;
+      --gap:18px;
+    }
+
+    *{box-sizing:border-box;}
+    html,body{margin:0; height:auto;}
+    body{
+      min-height:100vh;
+      overflow-y:auto;
+      font-family:"Poppins",system-ui,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      color:var(--ink);
+      background:linear-gradient(160deg,var(--sky),var(--lemon));
+    }
+    a{color:inherit; text-decoration:none; cursor:pointer;}
+
+    /* ===== Topbar ===== */
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .topbar .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:600; letter-spacing:.4px;}
+    .brand__mark{
+      width:32px; height:32px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff 0%, var(--sky) 50%, var(--lemon) 100%);
+      border:1px solid rgba(0,0,0,.08);
+    }
+    .nav{display:flex; gap:26px; font-size:14px; text-transform:uppercase; letter-spacing:.08em;}
+    .nav a{opacity:.8;}
+    .nav a:hover{opacity:1;}
+    .nav a[aria-current="page"]{opacity:1; font-weight:700;}
+
+    /* ===== Container ===== */
+    .container{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:48px 20px 80px;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      display:grid;
+      grid-template-columns:7fr 5fr;
+      gap:16px;
+      align-items:center;
+      margin-top:28px;
+    }
+
+    /* Video box with overlay controls */
+    .hero__video{
+      position:relative;
+      max-width:1000px;
+      border-radius:16px;
+      overflow:hidden;
+      background:#000;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+      user-select:none;
+    }
+    .hero__video video{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:16px;
+      object-fit:cover;
+      cursor:pointer; /* 클릭 유도 */
+    }
+
+    /* Overlay controls */
+    .controls{
+      position:absolute; inset:auto 10px 10px auto;
+      display:flex; gap:8px;
+      z-index:2;
+    }
+    .ctrl-btn{
+      border:none; outline:none;
+      background:rgba(0,0,0,.55);
+      color:#fff;
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:14px;
+      display:flex; align-items:center; gap:6px;
+      cursor:pointer;
+      transition:background .2s ease, transform .08s ease;
+      backdrop-filter: blur(4px);
+    }
+    .ctrl-btn:hover{background:rgba(0,0,0,.7)}
+    .ctrl-btn:active{transform:scale(.97)}
+    .ctrl-btn .ico{font-size:16px; line-height:1;}
+
+    /* Center play hint (shows when paused) */
+    .center-hint{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      pointer-events:none;
+    }
+    .center-hint .bubble{
+      display:none;
+      background:rgba(0,0,0,.55);
+      color:#fff;
+      padding:12px 16px;
+      border-radius:999px;
+      font-size:14px;
+      backdrop-filter: blur(4px);
+    }
+    .hero__video.paused .center-hint .bubble{display:block;}
+
+    .eyebrow{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:#3a3a3a; opacity:.8;}
+    .title{font-family:"Playfair Display",serif; font-weight:700; font-size:32px; line-height:1.1; margin:8px 0;}
+    .name-accent{color:var(--accent);}
+    .subtitle{font-family:"Playfair Display",serif; font-style:italic; font-size:20px; color:var(--muted); margin:8px 0 18px;}
+    .lede{font-size:16px; color:#2c2c2c; line-height:1.7; max-width:46ch;}
+
+    footer{margin-top:40px; padding:12px 0 60px; color:#3d3d3d; border-top:1px solid rgba(0,0,0,.12); text-align:center; font-size:13px;}
+
+    @media (max-width:1024px){
+      .hero{grid-template-columns:1fr; gap:24px;}
+      .title{font-size:38px;}
+      .hero__video video{width:100%;}
+    }
+    @media (max-width:560px){
+      .container{padding:32px 16px 64px;}
+      .title{font-size:30px;}
+      .subtitle{font-size:18px;}
+      .topbar .wrap{padding:12px 14px;}
+      .nav{gap:16px; font-size:12px;}
+      .ctrl-btn span.txt{display:none;} /* 모바일에선 아이콘만 */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="topbar">
+    <div class="wrap">
+      <a href="포트폴리오.html" class="brand">
+        <span class="brand__mark"></span>
+        <span>YoungNam Portfolio</span>
+      </a>
+      <nav class="nav">
+        <a href="./메인페이지.html">Home</a>
+        <a href="./프로필페이지.html">It's Me</a>
+        <a href="./마케팅및플랜.html">Marketing &amp; Planning</a>
+        <a href="./2D그래픽.html">2D Graphic</a>
+        <a href="./3D그래픽.html">3D Graphic</a>
+        <a href="./모션그래픽.html">Motion Graphic</a>
+        <a aria-current="page" href="./무비.html">Movie</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <figure class="hero__video" id="videoBox">
+        <video id="heroVideo" autoplay muted loop playsinline preload="metadata">
+          <source src="video/우리집은 도서관 홍보영상.mp4" type="video/mp4">
+          브라우저가 동영상을 지원하지 않습니다.
+        </video>
+
+        <!-- Overlay controls -->
+        <div class="controls">
+          <button class="ctrl-btn" id="playBtn" aria-label="재생/일시정지">
+            <span class="ico">⏯</span><span class="txt">Play</span>
+          </button>
+          <button class="ctrl-btn" id="muteBtn" aria-label="사운드 켜기/끄기">
+            <span class="ico">🔊</span><span class="txt">Sound</span>
+          </button>
+          <button class="ctrl-btn" id="fsBtn" aria-label="전체화면">
+            <span class="ico">⛶</span><span class="txt">Full</span>
+          </button>
+        </div>
+
+        <!-- Center hint when paused -->
+        <div class="center-hint">
+          <div class="bubble">클릭하면 재생</div>
+        </div>
+      </figure>
+
+      <div>
+        <div class="eyebrow">FILM & STORY</div>
+        <h1 class="title"><span class="name-accent">Movie</span><br>스토리를 영상으로 설계하다</h1>
+        <p class="subtitle">“하나의 장면이 감정을 만든다.”</p>
+        <p class="lede">
+          YoungNam의 영상 작업은 시각적 연출과 사운드의 조화를 통해<br>
+          브랜드의 메시지와 감정을 동시에 전달합니다.<br>
+          <b>“콘텐츠를 예술로 완성하는 스토리텔링 영상”</b>을 선보입니다.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 YoungNam Kim. All rights reserved.</footer>
+
+  <script>
+    const video = document.getElementById('heroVideo');
+    const box = document.getElementById('videoBox');
+    const playBtn = document.getElementById('playBtn');
+    const muteBtn = document.getElementById('muteBtn');
+    const fsBtn = document.getElementById('fsBtn');
+
+    // 초기 버튼 상태 동기화
+    function syncUI(){
+      // 재생 상태에 따라 중앙 힌트 토글
+      box.classList.toggle('paused', video.paused);
+      // 라벨 업데이트
+      playBtn.querySelector('.txt').textContent = video.paused ? 'Play' : 'Pause';
+      muteBtn.querySelector('.txt').textContent = video.muted ? 'Sound On' : 'Mute';
+      // 아이콘도 가볍게 변경(선택)
+      playBtn.querySelector('.ico').textContent = video.paused ? '▶' : '⏸';
+      muteBtn.querySelector('.ico').textContent = video.muted ? '🔊' : '🔇';
+    }
+    syncUI();
+
+    // 영상 클릭: 재생/일시정지 토글 (첫 클릭이면 사운드도 켜주기)
+    box.addEventListener('click', (e)=>{
+      if (e.target.closest('.ctrl-btn')) return; // 버튼 클릭은 무시
+      if (video.paused){
+        // 사용자 제스처가 있으므로 음소거 해제 가능
+        video.muted = false;
+        video.play();
+      }else{
+        video.pause();
+      }
+      syncUI();
+    });
+
+    // 버튼들
+    playBtn.addEventListener('click', ()=>{
+      if (video.paused){
+        video.play();
+      }else{
+        video.pause();
+      }
+      syncUI();
+    });
+
+    muteBtn.addEventListener('click', ()=>{
+      video.muted = !video.muted;
+      // iOS 정책 상 처음은 muted autoplay여야 하므로,
+      // 사용자가 버튼을 누른 시점엔 이미 제스처 OK → 즉시 적용됨
+      syncUI();
+    });
+
+    // 전체화면
+    fsBtn.addEventListener('click', async ()=>{
+      try{
+        if (document.fullscreenElement){
+          await document.exitFullscreen();
+        }else{
+          if (box.requestFullscreen) await box.requestFullscreen();
+          else if (box.webkitRequestFullscreen) box.webkitRequestFullscreen(); // iOS Safari
+        }
+      }catch(e){ console.warn(e); }
+    });
+
+    // 키보드 단축키: 스페이스(재생/일시정지), M(음소거), F(전체화면)
+    document.addEventListener('keydown',(e)=>{
+      if (e.code === 'Space'){ e.preventDefault(); video.paused ? video.play() : video.pause(); syncUI(); }
+      if (e.key.toLowerCase() === 'm'){ video.muted = !video.muted; syncUI(); }
+      if (e.key.toLowerCase() === 'f'){ fsBtn.click(); }
+    });
+
+    // 재생/일시정지 이벤트에 맞춰 UI 동기화
+    video.addEventListener('play', syncUI);
+    video.addEventListener('pause', syncUI);
+    video.addEventListener('volumechange', syncUI);
+  </script>
+</body>
+</html>

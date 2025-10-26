@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>YoungNam – Main Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --sky:#AEE8FF;
+      --lemon:#FFF6B3;
+      --ink:#1b1b1b;
+      --muted:#6b6b6b;
+      --paper:#ffffff;
+      --accent:#E2C75E;
+      --maxw:1200px;
+      --gap:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0; height:auto;}
+    body{
+      min-height:100vh; overflow-y:auto;
+      font-family:"Poppins",system-ui,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      color:var(--ink);
+      background:linear-gradient(160deg,var(--sky),var(--lemon));
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* ===== Topbar (프로필페이지와 완전 동일) ===== */
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .topbar .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:600; letter-spacing:.4px}
+    .brand__mark{
+      width:32px; height:32px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff 0%, var(--sky) 50%, var(--lemon) 100%);
+      border:1px solid rgba(0,0,0,.08);
+    }
+    .nav{display:flex; gap:26px; font-size:14px; text-transform:uppercase; letter-spacing:.08em}
+    .nav a{opacity:.8}
+    .nav a:hover{opacity:1}
+    .nav a[aria-current="page"]{opacity:1; font-weight:700}
+
+    /* ===== Container ===== */
+    .container{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:48px 20px 80px;
+    }
+
+    /* ===== Hub grid ===== */
+    .hub{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:var(--gap);
+      margin-top:40px;
+    }
+    .tile{
+      position:relative;
+      border-radius:16px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.6);
+      border:1px solid rgba(0,0,0,0.06);
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
+      display:flex; align-items:flex-end;
+      padding:24px;
+      transition:transform .2s ease, box-shadow .2s ease;
+      min-height:240px;
+    }
+    .tile:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 32px rgba(0,0,0,0.12);
+    }
+    .tile[data-bg]::before{
+      content:""; position:absolute; inset:0;
+      background-size:cover; background-position:center;
+      background-image:var(--bg);
+      filter:brightness(.9) contrast(1.05);
+    }
+    .tile[data-bg] .veil{
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,.6),rgba(0,0,0,0) 60%);
+    }
+    .tile[data-bg] .title,.tile[data-bg] .desc,.tile[data-bg] .eyebrow{
+      color:#fff; text-shadow:0 2px 6px rgba(0,0,0,0.5);
+    }
+    .tile > *{position:relative; z-index:1}
+    .tile .eyebrow{
+      position:absolute; top:12px; left:14px;
+      font-size:12px; text-transform:uppercase;
+      letter-spacing:.14em;
+      background:rgba(0,0,0,0.2);
+      padding:6px 8px;
+      border-radius:999px;
+    }
+    .tile .title{
+      font-family:"Playfair Display",serif;
+      font-weight:600;
+      font-size:28px;
+      margin:0;
+    }
+    .tile .desc{font-size:14px; margin-top:0px}
+
+    /* ===== Footer ===== */
+    footer{
+      margin-top:10px;
+      padding:12px 0 30px;
+      color:#3d3d3d;
+      border-top:1px solid rgba(0,0,0,.12);
+      text-align:center;
+      font-size:13px;
+    }
+
+    /* Responsive */
+    @media (max-width:1024px){
+      .hub{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      .hub{grid-template-columns:1fr}
+      .nav{gap:16px; font-size:12px}
+      .topbar .wrap{padding:12px 14px}
+    }
+    .tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 8px 14px rgba(0,0,0,0.05);
+  background: #fff;
+}
+
+.tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* cover → contain 으로 변경 */
+  object-position: center center; /* 가운데 정렬 */
+  background-color: #c8ceaa;      /* 남는 여백이 생길 때 부드럽게 채워줌 */
+  z-index: 0;
+}
+
+.tile > * {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0.1) 50%);
+  z-index: 0;
+}
+
+    
+
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a href="/포트폴리오.html" class="brand">
+        <span class="brand__mark"></span>
+        <span>YoungNam Portfolio</span>
+      </a>
+      <nav class="nav">
+        <a aria-current="page" href="./메인페이지.html">Home</a>
+        <a href="./프로필페이지.html">It's Me</a>
+        <a href="./마케팅및플랜.html">Marketing &amp; Planning</a>
+        <a href="./2D그래픽.html">2D Graphic</a>
+        <a href="./3D그래픽.html">3D Graphic</a>
+         <a href="./모션그래픽.html">Motion Graphic</a>
+        <a href="./무비.html">Movie</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hub">
+      <a class="tile"  href="./프로필페이지.html">
+        <img src="img/프로필페이지.png" >
+        <div class="eyebrow">IT'S ME</div>
+        <div>
+          <div class="title" style="font-family:'Poppins','Playfair Display',sans-serif;">IT'S ME</div>
+          <div class="desc" style="font-family:'Poppins','Playfair Display',sans-serif;" >프로필 · 연락</div>
+        </div>
+      </a>
+
+      <a class="tile" data-bg style="--bg:url('https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1600&auto=format&fit=crop')" href="./마케팅및플랜.html">
+        <div class="veil"></div>
+        <div class="eyebrow">MKT · PLAN</div>
+        <div>
+          <div class="title" style="font-family:'Poppins','Playfair Display',sans-serif;">Marketing &amp; Planning</div>
+          <div class="desc" style="font-family:'Poppins','Playfair Display',sans-serif;">브랜딩 · 캠페인 · 전략</div>
+        </div>
+      </a>
+
+      <a class="tile" data-bg style="--bg:url('https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=1600&auto=format&fit=crop')" href="./2D그래픽.html">
+        <div class="veil"></div>
+        <div class="eyebrow">2D</div>
+        <div>
+          <div class="title" style="font-family:'Poppins','Playfair Display',sans-serif;">2D Graphic</div>
+          <div class="desc" style="font-family:'Poppins','Playfair Display',sans-serif;">포스터 · 브랜딩</div>
+        </div>
+      </a>
+
+      <a class="tile" data-bg style="--bg:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop')" href="./3D그래픽.html">
+        <div class="veil"></div>
+        <div class="eyebrow">3D</div>
+        <div>
+          <div class="title" style="font-family:'Poppins','Playfair Display',sans-serif;">3D Graphic</div>
+          <div class="desc" style="font-family:'Poppins','Playfair Display',sans-serif;">공간 콘셉트</div>
+        </div>
+      </a>
+
+      <a class="tile" data-bg style="--bg:url('https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?q=80&w=1600&auto=format&fit=crop')" href="./모션그래픽.html">
+        <div class="veil"></div>
+        <div class="eyebrow">MOTION</div>
+        <div>
+          <div class="title" style="font-family:'Poppins','Playfair Display',sans-serif;">Motion Graphic</div>
+          <div class="desc" style="font-family:'Poppins','Playfair Display',sans-serif;">타이포 · 로고 · 인터랙션</div>
+        </div>
+      </a>
+
+      <a class="tile"  href="./무비.html">
+        <img src="img/무비.jpg">
+        <div class="veil"></div>
+        <div class="eyebrow">MOVIE</div>
+        <div>
+          <div class="title" style="font-family:'Poppins','Playfair Display',sans-serif;">Movie</div>
+          <div class="desc" style="font-family:'Poppins','Playfair Display',sans-serif;">우리집은 도서관</div>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer>© 2025 YoungNam Kim. All rights reserved.</footer>
+</body>
+</html>

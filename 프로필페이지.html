@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio – YOUNGNAM KIM</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; height: auto; }
+body { min-height: 100vh; overflow-y: auto; }
+    :root{
+      --sky:#AEE8FF;         /* 하늘색 */
+      --lemon:#FFF6B3;       /* 연노랑 */
+      --ink:#1b1b1b;         /* 본문색 */
+      --muted:#6b6b6b;       /* 설명 텍스트 */
+      --paper:#ffffff;       /* 카드/배경 화이트 */
+      --accent:#E2C75E;      /* 레몬 톤 강조 */
+      --maxw:1200px;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--ink);
+      font-family:"Poppins", system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background:linear-gradient(160deg,var(--sky),var(--lemon));
+    }
+    a{color:inherit; text-decoration:none}
+
+    /* Top Bar (메인과 동일 동작: 로고 클릭=Home, 메뉴 5개) */
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(0,0,0,.06)
+    }
+    .topbar .wrap{
+      max-width:var(--maxw); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:600; letter-spacing:.4px}
+    .brand__mark{
+      width:32px; height:32px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff 0%, var(--sky) 50%, var(--lemon) 100%);
+      border:1px solid rgba(0,0,0,.08)
+    }
+    .nav{display:flex; gap:26px; font-size:14px; text-transform:uppercase; letter-spacing:.08em}
+    .nav a{opacity:.8}
+    .nav a:hover{opacity:1}
+    .nav a[aria-current="page"]{opacity:1; font-weight:700}
+
+    /* Container */
+    .container{max-width:var(--maxw); margin:0 auto; padding:48px 20px 80px}
+
+    /* Hero */
+    .hero{display:grid; grid-template-columns: 4fr 8fr; gap:32px; align-items:center; margin-top:28px}
+    .hero__image{max-width:400px; width:90%; border-radius:12px; overflow:hidden; background:#d9f3ff; box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    .hero__image img{width:65%; height:100%; margin:0 auto; max-width:500px; object-fit:contain; display:block}
+    .eyebrow{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:#3a3a3a; opacity:.8}
+    .title{font-family:"Playfair Display", serif; font-weight:700; font-size:48px; line-height:1.08; margin:8px 0}
+    .name-accent{color:var(--accent); letter-spacing:.04em}
+    .subtitle{font-family:"Playfair Display", serif; font-style:italic; font-size:20px; color:var(--muted); margin:8px 0 18px}
+    .lede{font-size:17px; color:#2c2c2c; line-height:1.7; max-width:46ch}
+
+    /* Divider quote */
+    .pullquote{margin:64px 0 36px; padding:22px 24px; border-left:4px solid var(--accent); background:rgba(255,255,255,.65); border-radius:12px}
+    .pullquote p{margin:0; font-family:"Playfair Display", serif; font-size:22px; color:#303030}
+
+    .quote p {
+      background:#f8fcfa; border-left:4px solid #f2d87b; border-radius:12px;
+      padding:24px 32px; font-style:italic; color:#333; box-shadow:0 4px 16px rgba(0,0,0,0.05);
+      text-align:center;
+    }
+
+    /* Cards (Works/Updates) */
+    .section-hd{display:flex; align-items:flex-end; justify-content:space-between; margin:14px 0 14px}
+    .section-hd h2{font-family:"Playfair Display", serif; font-size:28px; margin:0}
+    .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+    .card{background:var(--paper); border:1px solid rgba(0,0,0,.06); border-radius:14px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,.06); transition:transform .2s ease, box-shadow .2s ease}
+    .card:hover{transform:translateY(-4px); box-shadow:0 10px 26px rgba(0,0,0,.10)}
+    .card__media{aspect-ratio:16/9; background:#eef8ff}
+    .card__media img{width:100%; height:100%; object-fit:cover; display:block}
+    .card__body{padding:14px 14px 16px}
+    .card__eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#7a7a7a}
+    .card__title{font-weight:600; margin:6px 0 4px}
+    .card__meta{font-size:13px; color:#6b6b6b}
+
+    /* Footer */
+    footer{margin-top:8px; padding:12px 0 60px; color:#3d3d3d}
+    .footer-inner{display:flex; justify-content:space-between; gap:20px; border-top:1px solid rgba(0,0,0,.12); padding-top:18px}
+    .social a{margin-right:14px; font-size:14px; opacity:.8}
+    .social a:hover{opacity:1}
+
+    /* Responsive (참고용) */
+    @media (max-width: 1024px){
+      .hero{grid-template-columns:1fr; gap:24px}
+      .title{font-size:44px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 560px){
+      .container{padding:32px 16px 64px}
+      .title{font-size:34px}
+      .subtitle{font-size:18px}
+      .grid{grid-template-columns:1fr}
+      .topbar .wrap{padding:12px 14px}
+      .nav{gap:16px; font-size:12px}
+    }
+   
+  </style>
+</head>
+<body>
+  <!-- Top Navigation (메인과 동일 스타일/동작) -->
+  <header class="topbar">
+    <div class="wrap">
+      <!-- 로고/브랜드 전체가 Home 링크 -->
+      <a href="포트폴리오.html" class="brand" title="Home">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span>YoungNam Portfolio</span>
+      </a>
+
+      <!-- 5개 메뉴 + 현재 페이지 강조 -->
+      <nav class="nav" aria-label="Primary">
+        <a href="./메인페이지.html">Home</a>
+        <a aria-current="page" href="프로필페이지.html">It's Me</a>
+        <a href="./마케팅및플랜.html">Marketing &amp; Planning</a>
+        <a href="./2D그래픽.html">2D Graphic</a>
+        <a href="./3D그래픽.html">3D Graphic</a>
+         <a href="./모션그래픽.html">Motion Graphic</a>
+        <a href="./무비.html">Movie</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <figure class="hero__image">
+        <img src="img/김영남 사진.jpg" alt="Profile visual" />
+      </figure>
+      <div>
+        <div class="eyebrow">PORTFOLIO 2025</div>
+        <h2 class="title">차분한 지성과 디자인의 온도로<br><span class="name-accent">김 영 남</span>을 소개합니다</h2>
+        <p class="subtitle">“기술과 디자인 사이, 따뜻한 지성”</p>
+        <p class="lede">하늘빛 여백과 연노랑의 온기가 어우러진 화면,<br>
+        조용히 <b>정돈된 문장과 색감</b> 속에서<br>
+        <span class="name-accent">김 영 남</span>의 디자인 철학을 담아냅니다.</p>
+      </div>
+    </section>
+
+    <!-- Pullquote / Lede -->
+    <section class="quote">
+      <p>“기술로 상상력을 연결하고, 디자인으로 경험을 완성한다.”</p>
+    </section>
+
+    <!-- Works / Updates -->
+<section id="works">
+  <div class="section-hd">
+    <h2>최근 작업</h2>
+  
+  </div>
+
+  <div class="grid">
+    <!-- Card 1 -->
+    <a href="./2D그래픽.html" class="card">
+      <div class="card__media">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop" alt="AUTOMATIC APPTACH" />
+      </div>
+      <div class="card__body">
+        <div class="card__eyebrow">2D Graphic</div>
+        <div class="card__title">추가 예정</div>
+        <div class="card__meta">2D Graphic</div>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="./3D그래픽.html" class="card">
+      <div class="card__media">
+        <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=1600&auto=format&fit=crop" alt="Poster" />
+      </div>
+      <div class="card__body">
+        <div class="card__eyebrow">3D Graphic</div>
+        <div class="card__title">추가 예정</div>
+        <div class="card__meta">3D Graphic</div>
+      </div>
+    </a>
+
+    <!-- Card 3 -->
+    <a href="./마케팅및플랜.html" class="card">
+      <div class="card__media">
+        <img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=1600&auto=format&fit=crop" alt="Video" />
+      </div>
+      <div class="card__body">
+        <div class="card__eyebrow">Motion Graphic</div>
+        <div class="card__title">추가 예정</div>
+        <div class="card__meta">Motion Graphic</div>
+      </div>
+    </a>
+
+    <!-- Card 4 -->
+    <a href="./무비.html" class="card">
+      <div class="card__media">
+        <img src="img/무비.jpg" alt="Branding" />
+      </div>
+      <div class="card__body">
+        <div class="card__eyebrow">Movie</div>
+        <div class="card__title">우리집은 도서관</div>
+        <div class="card__meta">우리집은 도서관</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+    <!-- Contact -->
+    <section id="contact" style="margin-top:56px">
+      <div class="section-hd">
+        <h2>Contact</h2>
+      </div>
+      <p style="font-size:16px; color:#2f2f2f">협업/문의: <a href="mailto:xdudska@naver.com"><b>xdudska@naver.com</b></a></p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div>© 2025 YoungNam Kim</div>
+        <div class="social">
+          <a href="#">YouTube</a>
+          <a href="#">Blog</a>
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
